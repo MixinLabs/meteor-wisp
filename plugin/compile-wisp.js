@@ -1,6 +1,7 @@
 var wisp = Npm.require('wisp/compiler');
 
 var handler = function (compileStep) {
+  console.log(compileStep);
   var source = compileStep.read().toString('utf-8');
   var outputFile = compileStep.inputPath + '.js';
 
@@ -34,7 +35,7 @@ var handler = function (compileStep) {
       sourcePath: compileStep.inputPath,
       data: wrapped.source,
       sourceMap: wrapped.sourceMap,
-      bare: compileStep.fileOptions.bare
+      bare: (compileStep.arch === 'browser' ? true : false)
   });
 
 };
