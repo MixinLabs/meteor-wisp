@@ -2,8 +2,8 @@
 
 ----
 
-*Supports source-maps.*
-
 **Usage:** `mrt add wisp`
 
 **Version:** `0.9.0-beta3`
+
+* Supports source-maps
