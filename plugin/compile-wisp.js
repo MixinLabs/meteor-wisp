@@ -15,7 +15,7 @@ var handler = function (compileStep) {
   }
 
   var wrapExports = function (source, sourceMap) {
-    // var sourceMapJSON = JSON.parse(sourceMap);
+    var sourceMapJSON = sourceMap;
 
     var header = ';(function (exports) {',
         footer = '})(this);';
@@ -23,17 +23,18 @@ var handler = function (compileStep) {
     source = header + source + footer;
     return {
       source: source,
-      sourceMap: sourceMap
+      sourceMap: JSON.stringify(sourceMapJSON)
     };
   };
 
-  var wrapped = wrapExports(output.code, JSON.stringify(output['source-map']));
+  var wrapped = wrapExports(output.code, output['source-map']);
 
   compileStep.addJavaScript({
       path: outputFile,
       sourcePath: compileStep.inputPath,
       data: wrapped.source,
-      sourceMap: wrapped.sourceMap
+      sourceMap: wrapped.sourceMap,
+      bare: compileStep.fileOptions.bare
   });
 
 };
