@@ -1,7 +1,6 @@
 var wisp = Npm.require('wisp/compiler');
 
 var handler = function (compileStep) {
-  console.log(compileStep);
   var source = compileStep.read().toString('utf-8');
   var outputFile = compileStep.inputPath + '.js';
 
