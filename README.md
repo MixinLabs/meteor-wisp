@@ -7,4 +7,4 @@
 **Version:** `0.9.0-beta3`
 
 * Supports source-maps
-* Expirimental support for namespaces/require
+* Experimental support for namespaces/require
