@@ -3,6 +3,7 @@ var wisp = Npm.require('wisp/compiler');
 var handler = function (compileStep) {
   var source = compileStep.read().toString('utf-8');
   var outputFile = compileStep.inputPath + '.js';
+  var isBrowser = (compileStep.arch === 'browser' ? true : false);
 
   try {
     var output = wisp.compile(source, { sourceMaps: true });
@@ -14,8 +15,26 @@ var handler = function (compileStep) {
         );
   }
 
+  var meteorWispNS = function (source, sourceMap) {
+    if (sourceMap)
+      var sourceMapJSON = JSON.parse(sourceMap);
+
+    var injectStr  = '$&var global = exports;' +
+                     'exports = __wisp__.namespace(_ns_.id, exports);' +
+                     'var require = __wisp__.require(_ns_.id, exports, global);';
+
+
+    source = source.replace(/var _ns_[^;]+;/, injectStr);
+
+    return {
+      source: source,
+      sourceMap: JSON.stringify(sourceMapJSON)
+    };
+  };
+
   var wrapExports = function (source, sourceMap) {
-    var sourceMapJSON = sourceMap;
+    if (sourceMap)
+      var sourceMapJSON = JSON.parse(sourceMap);
 
     var header = ';(function (exports) {',
         footer = '})(this);';
@@ -27,14 +46,25 @@ var handler = function (compileStep) {
     };
   };
 
-  var wrapped = wrapExports(output.code, output['source-map']);
+  var code = output.code,
+      sourceMap = JSON.stringify(output['source-map']);
+
+  var wrapped = wrapExports(code, sourceMap);
+  code = wrapped.source;
+  sourceMap = wrapped.sourceMap;
+
+  // if (isBrowser) {
+  var nsed = meteorWispNS(code, sourceMap);
+  code = nsed.source;
+  sourceMap = nsed.sourceMap;
+  // }
 
   compileStep.addJavaScript({
       path: outputFile,
       sourcePath: compileStep.inputPath,
-      data: wrapped.source,
-      sourceMap: wrapped.sourceMap,
-      bare: (compileStep.arch === 'browser' ? true : false)
+      data: code,
+      sourceMap: sourceMap,
+      bare: isBrowser
   });
 
 };
