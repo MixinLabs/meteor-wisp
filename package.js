@@ -2,7 +2,6 @@ Package.describe({
   summary: "wisp is a homoiconic JavaScript dialect with Clojure syntax, s-expressions and macros."
 });
 
-//Npm.depends({ wisp: '0.9.0-beta3' });
 
 Package._transitional_registerBuildPlugin({
   name: "compileWisp",
@@ -10,7 +9,7 @@ Package._transitional_registerBuildPlugin({
   sources: [
     'plugin/compile-wisp.js'
   ],
-  npmDependencies: {"wisp": "0.9.0-beta3"}
+  npmDependencies: {"wisp": "0.10.0"}
 });
 
 Package.on_use(function (api) {
