@@ -1,4 +1,4 @@
-var wispc = Npm.require('wisp/compiler');
+var wisp = Npm.require('wisp');
 
 var handler = function (compileStep) {
   var source = compileStep.read().toString('utf-8');
@@ -6,10 +6,10 @@ var handler = function (compileStep) {
   var isBrowser = (compileStep.arch === 'browser' ? true : false);
 
   try {
-    var output = wispc.compile(source, { sourceMaps: true });
+    var output = wisp.compileString(source, { sourceMaps: true });
   } catch (e) {
     throw new Error(
-          "thereis error" + compileStep.inputPath + ':' +
+          "there is error" + compileStep.inputPath + ':' +
           (e.location ? (e.location.first_line + ': ') : ' ') +
           e.message
         );
