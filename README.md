@@ -2,9 +2,12 @@
 
 ----
 
-**Usage:** `mrt add wisp`
+**Usage:** `meteor add nsmeta:wisp`
 
-**Version:** `0.9.0-beta3`
+**Version:** `0.10.0`
 
 * Supports source-maps
 * Experimental support for namespaces/require
+
+### Contributors
+- **[@c3z](https://github.com/c3z)**
