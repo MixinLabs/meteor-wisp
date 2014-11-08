@@ -1,9 +1,11 @@
 Package.describe({
-  summary: "wisp is a homoiconic JavaScript dialect with Clojure syntax, s-expressions and macros."
+  summary: "wisp is a homoiconic JavaScript dialect with Clojure syntax, s-expressions and macros.",
+  version: "0.10.0",
+  git: "https://github.com/MixinLabs/meteor-wisp.git"
 });
 
 
-Package._transitional_registerBuildPlugin({
+Package.registerBuildPlugin({
   name: "compileWisp",
   use: [],
   sources: [
@@ -12,7 +14,7 @@ Package._transitional_registerBuildPlugin({
   npmDependencies: {"wisp": "0.10.0"}
 });
 
-Package.on_use(function (api) {
-  api.add_files(['wispNamespace.js'], ['client', 'server']);
+Package.onUse(function (api) {
+  api.addFiles(['wispNamespace.js'], ['client', 'server']);
   api.export(['__wisp__'], ['client', 'server']);
 });
