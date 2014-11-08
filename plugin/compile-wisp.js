@@ -1,4 +1,4 @@
-var wisp = Npm.require('wisp');
+var wispc = Npm.require('wisp/compiler');
 
 var handler = function (compileStep) {
   var source = compileStep.read().toString('utf-8');
@@ -6,10 +6,10 @@ var handler = function (compileStep) {
   var isBrowser = (compileStep.arch === 'browser' ? true : false);
 
   try {
-    var output = wisp.compileString(source, { sourceMaps: true });
+    var output = wispc.compile(source, { sourceMaps: true });
   } catch (e) {
     throw new Error(
-          compileStep.inputPath + ':' +
+          "thereis error" + compileStep.inputPath + ':' +
           (e.location ? (e.location.first_line + ': ') : ' ') +
           e.message
         );
