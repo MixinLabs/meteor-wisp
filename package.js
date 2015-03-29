@@ -1,6 +1,7 @@
 Package.describe({
+  name: "nsmeta:wisp",
   summary: "wisp is a homoiconic JavaScript dialect with Clojure syntax, s-expressions and macros.",
-  version: "0.10.0",
+  version: "0.10.0_1",
   git: "https://github.com/MixinLabs/meteor-wisp.git"
 });
 
