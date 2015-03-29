@@ -1,12 +1,13 @@
-var wisp = Npm.require('wisp');
+var wispCompiler = Npm.require('wisp/compiler');
 
 var handler = function (compileStep) {
   var source = compileStep.read().toString('utf-8');
   var outputFile = compileStep.inputPath + '.js';
   var isBrowser = (compileStep.arch === 'browser' ? true : false);
+  var output;
 
   try {
-    var output = wisp.compileString(source, { sourceMaps: true });
+    output = wispCompiler.compile(source, { sourceMaps: true });
   } catch (e) {
     throw new Error(
           "there is error" + compileStep.inputPath + ':' +
